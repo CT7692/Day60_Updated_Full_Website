@@ -3,22 +3,15 @@ from security import safe_requests
 
 app = Flask(import_name="main")
 
-def get_json_blogs():
-    json_blogs = safe_requests.get("https://api.npoint.io/674f5423f73deab1e9a7").json()
-
-    return json_blogs
-
-
-
+BLOGS = safe_requests.get("https://api.npoint.io/674f5423f73deab1e9a7").json()
 
 @app.route('/')
 def home():
-    blogs = get_json_blogs()
     h1 = "Angela's Blog"
     subheading = "A Blog Theme by Start Bootstrap"
     image = "static/assets/img/home-bg.jpg"
 
-    return render_template("index.html", blogs=blogs ,h1=h1, subheading=subheading, image=image)
+    return render_template("index.html", blogs=BLOGS,h1=h1, subheading=subheading, image=image)
 
 @app.route('/about')
 def about():
@@ -38,8 +31,7 @@ def contact():
 @app.route('/post/<int:id>')
 def post(**kwargs):
     index = int(kwargs['id']) - 1
-    blogs = get_json_blogs()
-    blog = blogs[index]
+    blog = BLOGS[index]
     image = blog['image_url']
     h1 = blog['title']
     subheading = blog['subtitle']
