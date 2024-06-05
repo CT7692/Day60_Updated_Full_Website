@@ -11,7 +11,6 @@ BLOGS = safe_requests.get("https://api.npoint.io/674f5423f73deab1e9a7").json()
 
 @app.route('/')
 def home():
-
     h1 = "Angela's Blog"
     subheading = "A Blog Theme by Start Bootstrap"
     image = "static/assets/img/home-bg.jpg"
